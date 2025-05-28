@@ -1,1 +1,180 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pong Ultimate</title>
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/components/menu.css">
+    <link rel="stylesheet" href="css/components/game.css">
+    <link rel="stylesheet" href="css/components/mobile.css">
+</head>
+<body>
+    <div class="container">
+        <!-- LOGIN -->
+        <div class="screen active" id="loginScreen">
+            <div class="main-menu">
+                <div class="logo">🏓 PONG ULTIMATE</div>
+                <h2 style="margin-bottom: 30px;">Accedi o Registrati</h2>
+                
+                <div class="settings-panel" style="max-width: 400px;">
+                    <div class="setting-group">
+                        <label class="setting-label">Username:</label>
+                        <input type="text" class="setting-input" id="loginUsername" placeholder="Inserisci username" maxlength="20">
+                    </div>
+                    <div class="setting-group">
+                        <label class="setting-label">Password:</label>
+                        <input type="password" class="setting-input" id="loginPassword" placeholder="Inserisci password" maxlength="50">
+                    </div>
+                    <div style="display: flex; gap: 15px; margin-top: 20px;">
+                        <button class="menu-button" style="min-width: auto; flex: 1;" id="loginButton">🔑 LOGIN</button>
+                        <button class="menu-button" style="min-width: auto; flex: 1;" id="registerButton">✨ REGISTRATI</button>
+                    </div>
+                    <div id="loginMessage" style="margin-top: 15px; text-align: center; color: #ff4444;"></div>
+                </div>
 
+                <div style="margin-top: 30px; padding: 20px; background: rgba(0,255,136,0.1); border-radius: 15px; border: 1px solid #00ff88;">
+                    <h3>🎮 Account Demo:</h3>
+                    <p><strong>Username:</strong> guest1 <strong>Password:</strong> password</p>
+                    <p><strong>Username:</strong> guest2 <strong>Password:</strong> password</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- MENU PRINCIPALE -->
+        <div class="screen" id="mainMenu">
+            <div class="main-menu">
+                <div class="logo">🏓 PONG ULTIMATE</div>
+                <div id="welcomeMessage" style="margin-bottom: 20px; color: #00ff88; font-size: 18px;"></div>
+                <button class="menu-button" id="playButton">🎮 GIOCA</button>
+                <button class="menu-button" id="settingsButton">⚙️ IMPOSTAZIONI</button>
+                <button class="menu-button" id="statsButton">📊 STATISTICHE</button>
+                <button class="menu-button" id="logoutButton">🚪 LOGOUT</button>
+                <button class="menu-button" id="aboutButton">ℹ️ INFO</button>
+            </div>
+        </div>
+
+        <!-- SELEZIONE MODALITÀ -->
+        <div class="screen" id="modeSelect">
+            <button class="back-button" id="modeBackButton">← INDIETRO</button>
+            <div class="main-menu">
+                <h2 style="margin-bottom: 30px;">Scegli modalità:</h2>
+                <button class="menu-button" id="singlePlayerButton">🤖 SINGLE PLAYER</button>
+                <button class="menu-button" id="multiplayerButton">🌐 MULTIPLAYER</button>
+            </div>
+        </div>
+
+        <!-- IMPOSTAZIONI -->
+        <div class="screen" id="settings">
+            <button class="back-button" id="settingsBackButton">← INDIETRO</button>
+            <h2 style="margin-bottom: 30px;">⚙️ Impostazioni</h2>
+            <div class="settings-panel">
+                <div class="setting-group">
+                    <label class="setting-label">Velocità Palla:</label>
+                    <div class="slider-container">
+                        <span>Lenta</span>
+                        <input type="range" class="slider" id="ballSpeed" min="3" max="8" value="5">
+                        <span>Veloce</span>
+                    </div>
+                </div>
+                <div class="setting-group">
+                    <label class="setting-label">Dimensione Racchette:</label>
+                    <div class="slider-container">
+                        <span>Piccole</span>
+                        <input type="range" class="slider" id="paddleSize" min="70" max="130" value="100">
+                        <span>Grandi</span>
+                    </div>
+                </div>
+                <div class="setting-group">
+                    <label class="setting-label">Server IP (per multiplayer):</label>
+                    <input type="text" class="setting-input" id="serverIP" placeholder="192.168.1.100" value="localhost">
+                </div>
+                <div class="setting-group">
+                    <label class="setting-label">Porta Server:</label>
+                    <input type="number" class="setting-input" id="serverPort" value="3000">
+                </div>
+            </div>
+        </div>
+
+        <!-- LOBBY MULTIPLAYER -->
+        <div class="screen" id="lobby">
+            <button class="back-button" id="lobbyBackButton">← DISCONNETTI</button>
+            <div class="lobby-panel">
+                <h2>🌐 Lobby Multiplayer</h2>
+                <div class="status" id="lobbyStatus">Connessione...</div>
+                
+                <div class="player-status">
+                    <div class="player-card" id="player1Card">
+                        <h3 id="player1Name">Giocatore 1</h3>
+                        <p id="player1Status">In attesa...</p>
+                        <button class="ready-button" id="readyButton1" style="display: none;">PRONTO</button>
+                    </div>
+                    <div class="player-card" id="player2Card">
+                        <h3 id="player2Name">Giocatore 2</h3>
+                        <p id="player2Status">In attesa...</p>
+                    </div>
+                </div>
+
+                <div id="countdown" class="countdown" style="display: none;"></div>
+            </div>
+        </div>
+
+        <!-- GIOCO -->
+        <div class="screen" id="gameScreen">
+            <div class="game-container">
+                <div class="game-info">
+                    <div class="score">Giocatore 1: <span id="score1">0</span></div>
+                    <div class="status" id="gameStatus">Gioco in corso</div>
+                    <div class="score">Giocatore 2: <span id="score2">0</span></div>
+                </div>
+                
+                <canvas id="gameCanvas" width="800" height="400"></canvas>
+                
+                <div class="controls">
+                    <div class="control-group">
+                        <div>Giocatore 1 (Sinistra)</div>
+                        <div class="keys">
+                            <div class="key">Q/A</div>
+                            <div class="key">Mouse</div>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <div>Giocatore 2 (Destra)</div>
+                        <div class="keys">
+                            <div class="key">P/L</div>
+                            <div class="key">Mouse</div>
+                        </div>
+                    </div>
+                </div>
+
+                <button class="launch-button" id="launchButton" style="display: none; margin-top: 20px;">🚀 LANCIA LA PALLA (SPAZIO)</button>
+
+                <button class="back-button" id="gameBackButton">← MENU</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Controlli Mobile -->
+    <div class="mobile-controls">
+        <div class="mobile-paddle">
+            <div class="mobile-btn" id="p1Up">↑</div>
+            <div class="mobile-btn" id="p1Down">↓</div>
+            <div style="font-size: 12px;">P1</div>
+        </div>
+        <div class="mobile-paddle">
+            <div class="mobile-btn" id="p2Up">↑</div>
+            <div class="mobile-btn" id="p2Down">↓</div>
+            <div style="font-size: 12px;">P2</div>
+        </div>
+    </div>
+
+    <!-- Caricamento moduli -->
+    <script type="module">
+        import { Game } from './js/core/Game.js';
+        
+        // Inizializza il gioco
+        window.game = new Game();
+        await game.init();
+    </script>
+</body>
+</html>
