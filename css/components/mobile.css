@@ -1,1 +1,68 @@
+/* Controlli Mobile */
+.mobile-controls {
+    display: none;
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    gap: 40px;
+}
 
+.mobile-paddle {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+}
+
+.mobile-btn {
+    width: 60px;
+    height: 60px;
+    background: rgba(0, 255, 136, 0.2);
+    border: 2px solid #00ff88;
+    border-radius: 50%;
+    color: white;
+    font-size: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    user-select: none;
+    touch-action: manipulation;
+    cursor: pointer;
+}
+
+.mobile-btn:active {
+    background: rgba(0, 255, 136, 0.5);
+    transform: scale(0.95);
+}
+
+/* Mostra controlli mobile su schermi piccoli */
+@media (max-width: 768px) {
+    .mobile-controls {
+        display: flex;
+    }
+}
+
+/* Ottimizzazioni Touch */
+@media (pointer: coarse) {
+    .menu-button {
+        padding: 18px 45px;
+        font-size: 20px;
+    }
+    
+    .back-button {
+        padding: 12px 24px;
+        font-size: 16px;
+    }
+    
+    .ready-button {
+        padding: 15px 35px;
+        font-size: 18px;
+    }
+    
+    .mobile-btn {
+        width: 70px;
+        height: 70px;
+        font-size: 24px;
+    }
+}
