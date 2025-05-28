@@ -67,4 +67,85 @@ export class Paddle {
 
     // Movimento AI
     updateAI(ball) {
-        if (!this.aiEnabled)
+        if (!this.aiEnabled) return;
+        
+        const paddleCenter = this.y + this.height / 2;
+        const ballY = ball.y;
+        
+        // Zona morta per evitare movimento nervoso
+        if (Math.abs(ballY - paddleCenter) < this.aiReactionZone) {
+            this.stop();
+            return;
+        }
+        
+        // Calcola velocità AI basata sulla distanza
+        const distance = Math.abs(ballY - paddleCenter);
+        const speedMultiplier = Math.min(distance / 100, 1);
+        const aiSpeed = this.aiSpeed * speedMultiplier * this.game.managers.settings.get('ballSpeed');
+        
+        // Muovi verso la palla
+        if (ballY < paddleCenter) {
+            this.dy = -aiSpeed;
+        } else {
+            this.dy = aiSpeed;
+        }
+        
+        // Aggiungi un po' di imperfezione all'AI
+        if (Math.random() < 0.05) {
+            this.dy *= 0.8; // 5% di chance di rallentare
+        }
+    }
+
+    // Abilita/disabilita AI
+    setAI(enabled) {
+        this.aiEnabled = enabled;
+        if (!enabled) {
+            this.stop();
+        }
+    }
+
+    // Effetto quando colpisce la palla
+    onHit() {
+        this.hitAnimation = 1;
+    }
+
+    // Cambia dimensione (per power-up futuri)
+    setSize(height) {
+        this.height = height;
+        // Mantieni la racchetta nei limiti
+        if (this.y + this.height > Constants.CANVAS_HEIGHT) {
+            this.y = Constants.CANVAS_HEIGHT - this.height;
+        }
+    }
+
+    // Ottieni il centro della racchetta
+    getCenter() {
+        return {
+            x: this.x + this.width / 2,
+            y: this.y + this.height / 2
+        };
+    }
+
+    // Verifica se un punto è dentro la racchetta
+    containsPoint(x, y) {
+        return x >= this.x && x <= this.x + this.width &&
+               y >= this.y && y <= this.y + this.height;
+    }
+
+    // Serializzazione per multiplayer
+    serialize() {
+        return {
+            x: this.x,
+            y: this.y,
+            width: this.width,
+            height: this.height,
+            dy: this.dy
+        };
+    }
+
+    deserialize(data) {
+        this.y = data.y;
+        this.dy = data.dy;
+        if (data.height) this.height = data.height;
+    }
+}
