@@ -1,1 +1,142 @@
+/* Menu Principale */
+.main-menu {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+}
 
+/* Pannello Impostazioni */
+.settings-panel {
+    display: grid;
+    gap: 20px;
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+.setting-group {
+    background: rgba(0, 0, 0, 0.3);
+    padding: 20px;
+    border-radius: 15px;
+    border: 1px solid #00ff88;
+}
+
+.setting-label {
+    display: block;
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+.setting-input {
+    width: 100%;
+    padding: 10px;
+    background: rgba(0, 0, 0, 0.5);
+    border: 1px solid #00ff88;
+    border-radius: 8px;
+    color: white;
+    font-family: inherit;
+}
+
+/* Slider */
+.slider-container {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.slider {
+    flex: 1;
+    height: 5px;
+    border-radius: 5px;
+    background: rgba(0, 255, 136, 0.3);
+    outline: none;
+    cursor: pointer;
+}
+
+.slider::-webkit-slider-thumb {
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: #00ff88;
+    cursor: pointer;
+}
+
+.slider::-moz-range-thumb {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: #00ff88;
+    cursor: pointer;
+    border: none;
+}
+
+/* Lobby */
+.lobby-panel {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+}
+
+.player-status {
+    display: flex;
+    gap: 50px;
+    margin: 20px 0;
+}
+
+.player-card {
+    background: rgba(0, 0, 0, 0.4);
+    padding: 25px;
+    border-radius: 15px;
+    border: 2px solid #00ff88;
+    min-width: 200px;
+}
+
+.player-card.ready {
+    border-color: #00aaff;
+    background: rgba(0, 170, 255, 0.1);
+}
+
+.ready-button {
+    padding: 12px 30px;
+    background: rgba(0, 255, 136, 0.2);
+    border: 2px solid #00ff88;
+    border-radius: 20px;
+    color: white;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: 16px;
+    transition: all 0.3s ease;
+    margin-top: 15px;
+}
+
+.ready-button.ready {
+    background: rgba(0, 170, 255, 0.3);
+    border-color: #00aaff;
+}
+
+.ready-button:hover {
+    transform: scale(1.05);
+}
+
+/* Status */
+.status {
+    padding: 10px 20px;
+    border-radius: 25px;
+    background: rgba(0, 255, 136, 0.1);
+    border: 2px solid #00ff88;
+    font-size: 16px;
+    text-align: center;
+    min-width: 200px;
+}
+
+.status.waiting {
+    border-color: #ffaa00;
+    background: rgba(255, 170, 0, 0.1);
+}
+
+.status.error {
+    border-color: #ff4444;
+    background: rgba(255, 68, 68, 0.1);
+}
