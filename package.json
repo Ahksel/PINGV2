@@ -1,1 +1,22 @@
-
+{
+  "name": "pong-ultimate",
+  "version": "2.0.0",
+  "description": "Multiplayer Pong game with user system and MongoDB database",
+  "main": "server-db.js",
+  "type": "module",
+  "scripts": {
+    "start": "node server-db.js",
+    "dev": "node server-db.js"
+  },
+  "dependencies": {
+    "ws": "^8.14.2",
+    "mongodb": "^4.17.2"
+  },
+  "engines": {
+    "node": ">=16.0.0",
+    "npm": ">=7.0.0"
+  },
+  "keywords": ["pong", "multiplayer", "websocket", "game", "mongodb"],
+  "author": "Your Name",
+  "license": "MIT"
+}
