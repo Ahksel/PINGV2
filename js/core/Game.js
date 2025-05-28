@@ -219,4 +219,4 @@ export class Game {
             this.managers.events.off(event, callback);
         }
     }
-}
+
