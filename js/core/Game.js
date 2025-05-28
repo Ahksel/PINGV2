@@ -52,7 +52,7 @@ export class Game {
 
     async initializeUIManagers() {
         // Menu Manager
-        const { MenuManager } = await import('../ui/MenuManager.js');
+        const { MenuManager } = await import('../utils/MenuManager.js');
         this.managers.menu = new MenuManager(this);
         
         // UI Renderer
