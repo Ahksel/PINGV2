@@ -1,0 +1,17 @@
+# render.yaml
+services:
+  # Web Service
+  - type: web
+    name: pong-ultimate
+    runtime: node
+    buildCommand: npm install
+    startCommand: npm start
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: MONGODB_URL
+        sync: false  # Imposterai manualmente su Render
+      - key: PORT
+        fromDatabase:
+          name: PORT
+          property: port
