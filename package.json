@@ -5,8 +5,8 @@
   "main": "server-db.cjs",
   "type": "module",
   "scripts": {
-    "start": "node server-db.cjs",
-    "dev": "node server-db.cjs"
+    "start": "node server-db.js",
+    "dev": "node server-db.js"
   },
   "dependencies": {
     "ws": "^8.14.2",
