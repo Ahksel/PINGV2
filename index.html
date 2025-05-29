@@ -19,11 +19,11 @@
                 
                 <div class="settings-panel" style="max-width: 400px;">
                     <div class="setting-group">
-                        <label class="setting-label">Username:</label>
+                        <label class="setting-label" for="loginUsername">Username:</label>
                         <input type="text" class="setting-input" id="loginUsername" placeholder="Inserisci username" maxlength="20">
                     </div>
                     <div class="setting-group">
-                        <label class="setting-label">Password:</label>
+                        <label class="setting-label" for="loginPassword">Password:</label>
                         <input type="password" class="setting-input" id="loginPassword" placeholder="Inserisci password" maxlength="50">
                     </div>
                     <div style="display: flex; gap: 15px; margin-top: 20px;">
@@ -70,7 +70,7 @@
             <h2 style="margin-bottom: 30px;">⚙️ Impostazioni</h2>
             <div class="settings-panel">
                 <div class="setting-group">
-                    <label class="setting-label">Velocità Palla:</label>
+                    <label class="setting-label" for="ballSpeed">Velocità Palla:</label>
                     <div class="slider-container">
                         <span>Lenta</span>
                         <input type="range" class="slider" id="ballSpeed" min="3" max="8" value="5">
@@ -78,7 +78,7 @@
                     </div>
                 </div>
                 <div class="setting-group">
-                    <label class="setting-label">Dimensione Racchette:</label>
+                    <label class="setting-label" for="paddleSize">Dimensione Racchette:</label>
                     <div class="slider-container">
                         <span>Piccole</span>
                         <input type="range" class="slider" id="paddleSize" min="70" max="130" value="100">
@@ -86,11 +86,11 @@
                     </div>
                 </div>
                 <div class="setting-group">
-                    <label class="setting-label">Server IP (per multiplayer):</label>
+                    <label class="setting-label" for="serverIP">Server IP (per multiplayer):</label>
                     <input type="text" class="setting-input" id="serverIP" placeholder="192.168.1.100" value="localhost">
                 </div>
                 <div class="setting-group">
-                    <label class="setting-label">Porta Server:</label>
+                    <label class="setting-label" for="serverPort">Porta Server:</label>
                     <input type="number" class="setting-input" id="serverPort" value="3000">
                 </div>
             </div>
