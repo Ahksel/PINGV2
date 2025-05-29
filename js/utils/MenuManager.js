@@ -338,7 +338,7 @@ Divertiti! 🎮`;
     document.getElementById('score1').textContent = score1;
     document.getElementById('score2').textContent = score2;
 }
-}
+
 
 
     // Gestione dinamica dei menu
