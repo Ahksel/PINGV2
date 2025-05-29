@@ -74,8 +74,8 @@ export class Game {
             console.log('✅ MenuManager istanziato');
             
             // UI Renderer
-            console.log('📂 Importando UIRenderer da ../ui/UIRenderer.js...');
-            const { UIRenderer } = await import('../ui/UIRenderer.js');
+            console.log('📂 Importando UIRenderer da ../utils/UIRenderer.js...');
+            const { UIRenderer } = await import('../utils/UIRenderer.js');
             console.log('✅ UIRenderer importato');
             
             this.managers.ui = new UIRenderer(this);
