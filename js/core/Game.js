@@ -130,7 +130,7 @@ export class Game {
                 const success = await this.managers.auth.autoLogin(savedUser);
                 if (success) {
                     console.log('✅ Auto-login riuscito, mostro mainMenu');
-                    //this.managers.menu.showScreen('mainMenu');
+                    this.managers.menu.showScreen('mainMenu');
                     this.managers.ui.showWelcomeMessage(savedUser.username);
                 } else {
                     console.log('❌ Auto-login fallito, mostro loginScreen');
