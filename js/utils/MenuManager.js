@@ -12,11 +12,25 @@ export class MenuManager {
     }
 
     init() {
-        // Registra tutte le schermate
-        this.registerScreens();
+        // Assicurati che il DOM sia pronto
+        const initializeMenu = () => {
+            // Registra tutte le schermate
+            this.registerScreens();
+            
+            // Setup event listeners per i pulsanti
+            this.setupEventListeners();
+            
+            // Debug: mostra quante schermate sono state trovate
+            console.log('🎮 MenuManager inizializzato. Schermate trovate:', this.screens.size);
+            console.log('📋 Schermate:', Array.from(this.screens.keys()));
+        };
         
-        // Setup event listeners per i pulsanti
-        this.setupEventListeners();
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initializeMenu);
+        } else {
+            // DOM già caricato
+            initializeMenu();
+        }
         
         // Ascolta eventi di navigazione
         this.game.on(GameEvents.SCREEN_CHANGE, (data) => {
