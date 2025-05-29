@@ -30,6 +30,13 @@ export class Game {
             this.isInitialized = true;
             console.log('✅ Gioco inizializzato con successo!');
             
+            // IMPORTANTE: Assicurati che una schermata sia visibile
+            // Se checkAutoLogin non ha mostrato nessuna schermata, mostra il login
+            if (!document.querySelector('.screen.active')) {
+                console.log('⚠️ Nessuna schermata attiva, mostro loginScreen');
+                this.managers.menu.showScreen('loginScreen');
+            }
+            
         } catch (error) {
             console.error('❌ Errore durante l\'inizializzazione:', error);
             console.error('Stack trace:', error.stack);
@@ -108,8 +115,11 @@ export class Game {
     }
 
     async checkAutoLogin() {
+        console.log('🔑 Controllo auto-login...');
         const savedUser = this.managers.storage.get('pong_user');
+        
         if (savedUser) {
+            console.log('👤 Utente salvato trovato:', savedUser.username);
             try {
                 // Inizializza Auth Manager se necessario
                 if (!this.managers.auth) {
@@ -119,16 +129,20 @@ export class Game {
                 
                 const success = await this.managers.auth.autoLogin(savedUser);
                 if (success) {
+                    console.log('✅ Auto-login riuscito, mostro mainMenu');
                     this.managers.menu.showScreen('mainMenu');
                     this.managers.ui.showWelcomeMessage(savedUser.username);
                 } else {
+                    console.log('❌ Auto-login fallito, mostro loginScreen');
                     this.managers.menu.showScreen('loginScreen');
                 }
             } catch (error) {
                 console.error('Errore auto-login:', error);
+                console.log('❌ Errore, mostro loginScreen');
                 this.managers.menu.showScreen('loginScreen');
             }
         } else {
+            console.log('👤 Nessun utente salvato, mostro loginScreen');
             this.managers.menu.showScreen('loginScreen');
         }
     }
