@@ -32,42 +32,79 @@ export class Game {
             
         } catch (error) {
             console.error('❌ Errore durante l\'inizializzazione:', error);
+            console.error('Stack trace:', error.stack);
             this.handleInitError(error);
         }
     }
 
     async initializeCoreManagers() {
-        // Event Manager - Sistema eventi centralizzato
-        this.managers.events = new EventManager();
-        
-        // Game State - Stato del gioco
-        this.managers.state = new GameState(this.managers.events);
-        
-        // Storage Manager
-        const { Storage } = await import('../utils/Storage.js');
-        this.managers.storage = Storage;
-        
-        console.log('📦 Manager core inizializzati');
+        try {
+            console.log('📦 Inizializzazione Core Managers...');
+            
+            // Event Manager - Sistema eventi centralizzato
+            this.managers.events = new EventManager();
+            console.log('✅ EventManager creato');
+            
+            // Game State - Stato del gioco
+            this.managers.state = new GameState(this.managers.events);
+            console.log('✅ GameState creato');
+            
+            // Storage Manager
+            const { Storage } = await import('../utils/Storage.js');
+            this.managers.storage = Storage;
+            console.log('✅ Storage importato');
+            
+            console.log('📦 Manager core inizializzati con successo');
+        } catch (error) {
+            console.error('❌ Errore in initializeCoreManagers:', error);
+            throw error;
+        }
     }
 
     async initializeUIManagers() {
-        // Menu Manager
-        const { MenuManager } = await import('../utils/MenuManager.js');
-        this.managers.menu = new MenuManager(this);
-        
-        // UI Renderer
-        const { UIRenderer } = await import('../ui/UIRenderer.js');
-        this.managers.ui = new UIRenderer(this);
-        
-        console.log('🎨 Manager UI inizializzati');
+        try {
+            console.log('🎨 Inizializzazione UI Managers...');
+            
+            // Menu Manager
+            console.log('📂 Importando MenuManager da ../utils/MenuManager.js...');
+            const { MenuManager } = await import('../utils/MenuManager.js');
+            console.log('✅ MenuManager importato');
+            
+            this.managers.menu = new MenuManager(this);
+            console.log('✅ MenuManager istanziato');
+            
+            // UI Renderer
+            console.log('📂 Importando UIRenderer da ../ui/UIRenderer.js...');
+            const { UIRenderer } = await import('../ui/UIRenderer.js');
+            console.log('✅ UIRenderer importato');
+            
+            this.managers.ui = new UIRenderer(this);
+            console.log('✅ UIRenderer istanziato');
+            
+            console.log('🎨 Manager UI inizializzati con successo');
+        } catch (error) {
+            console.error('❌ Errore in initializeUIManagers:', error);
+            console.error('Dettagli errore:', {
+                message: error.message,
+                stack: error.stack,
+                fileName: error.fileName,
+                lineNumber: error.lineNumber
+            });
+            throw error;
+        }
     }
 
     async loadSettings() {
-        const { Settings } = await import('../utils/Settings.js');
-        this.managers.settings = new Settings(this.managers.storage);
-        await this.managers.settings.load();
-        
-        console.log('⚙️ Impostazioni caricate');
+        try {
+            console.log('⚙️ Caricamento impostazioni...');
+            const { Settings } = await import('../utils/Settings.js');
+            this.managers.settings = new Settings(this.managers.storage);
+            await this.managers.settings.load();
+            console.log('⚙️ Impostazioni caricate con successo');
+        } catch (error) {
+            console.error('❌ Errore in loadSettings:', error);
+            throw error;
+        }
     }
 
     async checkAutoLogin() {
@@ -220,4 +257,3 @@ export class Game {
         }
     }
 }
-
