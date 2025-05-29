@@ -1,4 +1,4 @@
-// js/ui/MenuManager.js
+// js/utils/MenuManager.js
 import { GameEvents } from '../core/EventManager.js';
 import { Constants } from '../utils/Constants.js';
 
@@ -129,6 +129,32 @@ export class MenuManager {
     }
 
     async handleLogin() {
+        const username = document.getElementById('loginUsername').value.trim();
+        const password = document.getElementById('loginPassword').value.trim();
+        
+        if (!username || !password) {
+            this.showLoginError('Inserisci username e password');
+            return;
+        }
+        
+        // Carica AuthManager se necessario
+        if (!this.game.managers.auth) {
+            const { AuthManager } = await import('../user/AuthManager.js');
+            this.game.managers.auth = new AuthManager(this.game);
+        }
+        
+        try {
+            const success = await this.game.managers.auth.login(username, password);
+            if (success) {
+                this.clearLoginForm();
+                this.showScreen('mainMenu');
+            }
+        } catch (error) {
+            this.showLoginError(error.message || 'Errore di login');
+        }
+    }
+
+    async handleRegister() {
         const username = document.getElementById('loginUsername').value.trim();
         const password = document.getElementById('loginPassword').value.trim();
         
@@ -323,29 +349,3 @@ Divertiti! 🎮`;
         }
     }
 }
-        
-        try {
-            const success = await this.game.managers.auth.login(username, password);
-            if (success) {
-                this.clearLoginForm();
-                this.showScreen('mainMenu');
-            }
-        } catch (error) {
-            this.showLoginError(error.message || 'Errore di login');
-        }
-    }
-
-    async handleRegister() {
-        const username = document.getElementById('loginUsername').value.trim();
-        const password = document.getElementById('loginPassword').value.trim();
-        
-        if (!username || !password) {
-            this.showLoginError('Inserisci username e password');
-            return;
-        }
-        
-        // Carica AuthManager se necessario
-        if (!this.game.managers.auth) {
-            const { AuthManager } = await import('../user/AuthManager.js');
-            this.game.managers.auth = new AuthManager(this.game);
-        }
